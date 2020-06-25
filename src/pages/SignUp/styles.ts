@@ -101,10 +101,12 @@ export const FormSection = styled.section`
       flex-direction: column;
     }
 
-    figure {
+    div {
       width: 100%;
+      display: flex;
+      flex-direction: column;
 
-      & + figure {
+      & + div {
         margin-left: 10px;
 
         @media (max-width: 780px) {

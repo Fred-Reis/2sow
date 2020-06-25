@@ -31,30 +31,30 @@ const SignUp: React.FC = () => {
 
           <FormSection>
             <div>
-              <figure style={{ width: '60%' }}>
+              <div style={{ width: '60%' }}>
                 <p>CEP</p>
                 <Input placeholder="CEP" />
-              </figure>
+              </div>
 
-              <figure>
+              <div>
                 <p>SEXO</p>
                 <Input placeholder="Opcional" />
-              </figure>
+              </div>
             </div>
 
             <p>RUA</p>
             <Input placeholder="Rua" />
 
             <div>
-              <figure>
+              <div>
                 <p>BAIRRO</p>
                 <Input placeholder="Bairro" />
-              </figure>
+              </div>
 
-              <figure style={{ width: '50%' }}>
+              <div style={{ width: '50%' }}>
                 <p>NÚMERO</p>
                 <Input placeholder="número" />
-              </figure>
+              </div>
             </div>
 
             <p>CIDADE</p>

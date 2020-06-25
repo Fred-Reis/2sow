@@ -13,6 +13,11 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
+  @media (max-width: 780px) {
+    height: 100%;
+    background-attachment: fixed;
+  }
+
   img {
     position: absolute;
     top: 15px;
@@ -35,8 +40,7 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
 
-    margin: 50px;
-    margin-top: 600px;
+    margin: 70px 50px;
   }
 
   h2 {

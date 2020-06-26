@@ -56,7 +56,7 @@ export const Content = styled.div`
       font-weight: 800;
     }
 
-    div {
+    > div {
       flex: 1;
       background-color: #f4fff3;
       padding: 10px;

@@ -3,33 +3,27 @@ import { FiArrowLeft } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
-import { useAuth } from '../../hooks/AuthContext';
-
 import { Container, CustomForm, FormSection, NewButton } from './styles';
-
-import Input from '../../components/Input';
-import apiCep from '../../services/apiCep';
+import { useCreate } from 'src/hooks/CreateUserContext';
 
 import getValidationErrors from 'src/utils/getValidationErrors';
-import cpfMask from 'src/utils/cpfMask';
+import Input from 'src/components/Input';
+import apiCep from 'src/services/apiCep';
 import cepMask from 'src/utils/cepMask';
+import cpfMask from 'src/utils/cpfMask';
 
-import logo from '../../assets/logo.svg';
+import logo from 'src/assets/logo.svg';
 
-interface EnderecoFormData {
-  cep: number;
-  rua: string;
-  numero: number;
-  bairro: string;
-  cidade: string;
-}
 interface SingnUpFormData {
   nome: string;
   cpf: string;
   email: string;
   senha: string;
-  token: string;
-  endereco: EnderecoFormData;
+  cep: string;
+  rua: string;
+  numero: number;
+  bairro: string;
+  cidade: string;
 }
 
 const SignUp: React.FC = () => {
@@ -38,9 +32,7 @@ const SignUp: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
 
-  const { signIn, user } = useAuth();
-
-  console.log('user', user);
+  const { createUser, user } = useCreate();
 
   const handleSubmit = useCallback(
     async (data: SingnUpFormData): Promise<void> => {
@@ -65,16 +57,13 @@ const SignUp: React.FC = () => {
           abortEarly: false,
         });
 
-        signIn({
-          email: data.email,
-          password: data.senha,
-        });
+        createUser(data);
       } catch (err) {
         console.log(err);
         formRef.current?.setErrors(getValidationErrors(err));
       }
     },
-    [signIn],
+    [createUser],
   );
 
   const handleMaskCpf = useCallback((e: any): any => {
@@ -88,7 +77,6 @@ const SignUp: React.FC = () => {
 
     const response = await apiCep.get(`${cep.replace('-', '')}/json/`);
 
-    console.log('cep', response.data);
     formRef.current?.setFieldValue('cidade', response.data.localidade);
     formRef.current?.setFieldValue('rua', response.data.logradouro);
     formRef.current?.setFieldValue('bairro', response.data.bairro);
@@ -101,7 +89,7 @@ const SignUp: React.FC = () => {
     <Container>
       <img src={logo} alt="Logo" />
 
-      <CustomForm ref={formRef} initialData={{}} onSubmit={handleSubmit}>
+      <CustomForm ref={formRef} onSubmit={handleSubmit}>
         <h2>Garanta seu lugar nessa viagem</h2>
         <div>
           <FormSection>

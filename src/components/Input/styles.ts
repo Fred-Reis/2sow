@@ -41,7 +41,7 @@ export const Container = styled.div<InputProps>`
     border: 0;
     color: #2d374e;
     font-weight: bold;
-    width: 100%;
+    width: 100% !important;
 
     &::placeholder {
       color: #8497ae;

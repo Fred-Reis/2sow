@@ -4,6 +4,7 @@ import React from 'react';
 import GlobalStyle from './styles/global';
 
 import SignUp from '../src/pages/SignUp';
+// import Login from '../src/pages/Login';
 
 // import Routes from './routes';
 

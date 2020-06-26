@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiLogIn } from 'react-icons/fi';
+import { Form } from '@unform/web';
 
 import { Container, Content, Background } from './styles';
 
@@ -9,6 +10,7 @@ import Input from '../../components/Input';
 import logo from '../../assets/logo.svg';
 
 const Login: React.FC = () => {
+  const handleSubmit = () => {};
   return (
     <Container>
       <Content>
@@ -16,15 +18,19 @@ const Login: React.FC = () => {
 
         <h2>Embarque para um mundo novo</h2>
 
-        <form>
+        <Form onSubmit={handleSubmit}>
           <h1>LOGIN</h1>
 
           <div>
             <p>EMAIL</p>
-            <Input placeholder="Digite seu E-mail" />
+            <Input name="email" placeholder="Digite seu E-mail" />
 
             <p>SENHA</p>
-            <Input type="password" placeholder="Digite sua senha" />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Digite sua senha"
+            />
 
             <Button type="submit">ENTRAR</Button>
 
@@ -33,7 +39,7 @@ const Login: React.FC = () => {
               <FiLogIn />
             </a>
           </div>
-        </form>
+        </Form>
       </Content>
       <Background />
     </Container>

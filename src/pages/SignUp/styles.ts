@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { lighten } from 'polished';
+import { Form } from '@unform/web';
 
 import backgroundImg from '../../assets/background-signUp.png';
 import Button from '../../components/Button';
@@ -25,7 +26,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Form = styled.form`
+export const CustomForm = styled(Form)`
   display: flex;
   flex-direction: column;
 
@@ -46,9 +47,9 @@ export const Form = styled.form`
   h2 {
     color: #2d374e;
     margin-bottom: 24px;
+    margin-top: 10px;
     text-align: center;
     font-size: 20px;
-    margin-top: 10px;
     font-weight: 800;
   }
 
@@ -63,7 +64,7 @@ export const Form = styled.form`
     }
   }
 
-  p {
+  label {
     color: #8497ae;
     font-weight: bold;
     margin: 30px 0 5px 5px;

@@ -1,12 +1,14 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
-import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
+
+import { useAuth } from '../../hooks/AuthContext';
 
 import { Container, CustomForm, FormSection, NewButton } from './styles';
 
-import InputMask from '../../components/InputMask';
 import Input from '../../components/Input';
+import apiCep from '../../services/apiCep';
 
 import getValidationErrors from 'src/utils/getValidationErrors';
 import cpfMask from 'src/utils/cpfMask';
@@ -14,48 +16,85 @@ import cepMask from 'src/utils/cepMask';
 
 import logo from '../../assets/logo.svg';
 
+interface EnderecoFormData {
+  cep: number;
+  rua: string;
+  numero: number;
+  bairro: string;
+  cidade: string;
+}
+interface SingnUpFormData {
+  nome: string;
+  cpf: string;
+  email: string;
+  senha: string;
+  token: string;
+  endereco: EnderecoFormData;
+}
+
 const SignUp: React.FC = () => {
   const [maskedCpf, setMaskedCpf] = useState('');
   const [maskedCep, setMaskedCep] = useState('');
+
   const formRef = useRef<FormHandles>(null);
 
-  const handleGetAddress = useCallback(async () => {
-    formRef.current?.setFieldValue('rua', 'rua');
-  }, []);
+  const { signIn, user } = useAuth();
 
-  const handleSubmit = useCallback(async (data: any): Promise<void> => {
-    try {
-      formRef.current?.setErrors({});
+  console.log('user', user);
 
-      const schema = Yup.object().shape({
-        nome: Yup.string().required('Nome é obrigatório'),
-        cpf: Yup.string().min(14, 'Precisa ter 12 números'),
-        email: Yup.string()
-          .email('Digite um E-mail válido')
-          .required('O E-mail é obrigatório'),
-        senha: Yup.string().min(4, 'Mínimo 4 dígitos'),
-        cep: Yup.string().min(9, 'Precisa ter 8 números'),
-        bairro: Yup.string().required('Bairro é obrigatório'),
-        rua: Yup.string().required('Rua é obrigatória'),
-        numero: Yup.string().required('Número é obrigatório'),
-        cidade: Yup.string().required('Cidade é obrigatória'),
-      });
+  const handleSubmit = useCallback(
+    async (data: SingnUpFormData): Promise<void> => {
+      try {
+        formRef.current?.setErrors({});
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      console.log(err);
-      formRef.current?.setErrors(getValidationErrors(err));
-    }
-  }, []);
+        const schema = Yup.object().shape({
+          nome: Yup.string().required('Nome é obrigatório'),
+          cpf: Yup.string().min(14, 'Precisa ter 12 números'),
+          email: Yup.string()
+            .email('Digite um E-mail válido')
+            .required('O E-mail é obrigatório'),
+          senha: Yup.string().min(4, 'Mínimo 4 dígitos'),
+          cep: Yup.string().min(9, 'Precisa ter 8 números'),
+          bairro: Yup.string().required('Bairro é obrigatório'),
+          rua: Yup.string().required('Rua é obrigatória'),
+          numero: Yup.string().required('Número é obrigatório'),
+          cidade: Yup.string().required('Cidade é obrigatória'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        signIn({
+          email: data.email,
+          password: data.senha,
+        });
+      } catch (err) {
+        console.log(err);
+        formRef.current?.setErrors(getValidationErrors(err));
+      }
+    },
+    [signIn],
+  );
 
   const handleMaskCpf = useCallback((e: any): any => {
     setMaskedCpf(cpfMask(e.target.value));
   }, []);
 
-  const handleMaskCep = useCallback((e: any): any => {
+  const handleMaskCep = useCallback(async (e: any): Promise<any> => {
     setMaskedCep(cepMask(e.target.value));
+
+    let cep = e.target.value;
+
+    const response = await apiCep.get(`${cep.replace('-', '')}/json/`);
+
+    console.log('cep', response.data);
+    formRef.current?.setFieldValue('cidade', response.data.localidade);
+    formRef.current?.setFieldValue('rua', response.data.logradouro);
+    formRef.current?.setFieldValue('bairro', response.data.bairro);
+
+    // formRef.current?.setFieldRef('numero');
+    // focus numero pendente
   }, []);
 
   return (
@@ -96,6 +135,7 @@ const SignUp: React.FC = () => {
                   name="cep"
                   value={maskedCep}
                   onChange={handleMaskCep}
+                  // onSubmit={handleGetAddress(maskedCep)}
                   placeholder="CEP"
                 />
               </div>

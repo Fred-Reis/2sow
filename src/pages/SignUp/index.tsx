@@ -31,6 +31,7 @@ const SignUp: React.FC = () => {
   const [maskedCep, setMaskedCep] = useState('');
 
   const formRef = useRef<FormHandles>(null);
+  const inputRef = useRef(null);
 
   const { createUser, user } = useCreate();
 
@@ -81,8 +82,11 @@ const SignUp: React.FC = () => {
     formRef.current?.setFieldValue('rua', response.data.logradouro);
     formRef.current?.setFieldValue('bairro', response.data.bairro);
 
-    // formRef.current?.setFieldRef('numero');
-    // focus numero pendente
+    if (response.status === 200) {
+      setTimeout(() => {
+        formRef.current?.getFieldRef('numero').focus();
+      }, 500);
+    }
   }, []);
 
   return (
@@ -123,7 +127,6 @@ const SignUp: React.FC = () => {
                   name="cep"
                   value={maskedCep}
                   onChange={handleMaskCep}
-                  // onSubmit={handleGetAddress(maskedCep)}
                   placeholder="CEP"
                 />
               </div>

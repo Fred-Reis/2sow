@@ -1,0 +1,19 @@
+{
+  "peoples": [
+    {
+      "id": 2,
+      "name": "Fred",
+      "cpf": "098.611.617-32",
+      "email": "fred@teste.com",
+      "password": "1234",
+      "token": "123",
+      "endereco": {
+        "cep": 13454000,
+        "rua": "rua talvez",
+        "numero": 785,
+        "bairro": "bairro azul",
+        "cidade": "cidade eterna"
+      }
+    }
+  ]
+}

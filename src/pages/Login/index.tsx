@@ -22,7 +22,7 @@ interface LoginFormData {
 const Login: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { addToast, removeToast } = useToast();
+  const { addToast } = useToast();
   const { signIn } = useAuth();
 
   const handleSubmit = useCallback(
@@ -51,9 +51,15 @@ const Login: React.FC = () => {
 
           formRef.current?.setErrors(errors);
         }
+
+        addToast({
+          type: 'error',
+          title: 'Erro no cadastro',
+          description: err.message,
+        });
       }
     },
-    [signIn],
+    [signIn, addToast],
   );
   return (
     <Container>
@@ -66,10 +72,10 @@ const Login: React.FC = () => {
           <h1>LOGIN</h1>
 
           <div>
-            <label>EMAIL</label>
+            <p>EMAIL</p>
             <Input name="email" placeholder="Digite seu E-mail" />
 
-            <label>SENHA</label>
+            <p>SENHA</p>
             <Input
               name="senha"
               type="password"

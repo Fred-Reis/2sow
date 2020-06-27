@@ -37,8 +37,7 @@ export const CreateUserProvider: React.FC = ({ children }) => {
     );
 
     if (userAlreadyExist) {
-      // throw new Error();
-      return console.log('caiu no erro');
+      throw new Error('Já existe um cadastro com esse endereço de e-mail.');
     }
 
     console.log('credentials', credentials);

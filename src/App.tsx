@@ -5,15 +5,15 @@ import GlobalStyle from './styles/global';
 
 import AppProvider from './hooks';
 
-import SignUp from '../src/pages/SignUp';
-// import Login from '../src/pages/Login';
+// import SignUp from '../src/pages/SignUp';
+import Login from '../src/pages/Login';
 
 // import Routes from './routes';
 
 const App: React.FC = () => (
   <>
     <AppProvider>
-      <SignUp />
+      <Login />
     </AppProvider>
 
     <GlobalStyle />

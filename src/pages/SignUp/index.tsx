@@ -57,7 +57,11 @@ const SignUp: React.FC = () => {
           formRef.current?.setErrors(errors);
         }
 
-        addToast();
+        addToast({
+          type: 'error',
+          title: 'Erro no cadastro',
+          description: err.message,
+        });
       }
     },
     [createUser, addToast],
@@ -78,7 +82,7 @@ const SignUp: React.FC = () => {
     formRef.current?.setFieldValue('rua', response.data.logradouro);
     formRef.current?.setFieldValue('bairro', response.data.bairro);
 
-    if (response.status === 200) {
+    if (response.data.logradouro) {
       setTimeout(() => {
         formRef.current?.getFieldRef('numero').focus();
       }, 500);

@@ -1,4 +1,6 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
+
+import { useToast } from './toast';
 import api from '../services/api';
 
 interface AuthState {
@@ -19,6 +21,8 @@ interface AuthContextDTO {
 const AuthContext = createContext<AuthContextDTO>({} as AuthContextDTO);
 
 export const AuthProvider: React.FC = ({ children }) => {
+  const { addToast } = useToast();
+
   const [token, setToken] = useState(() => {
     const newToken = localStorage.getItem('@NewWorld:token');
 
@@ -39,21 +43,35 @@ export const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.get('/peoples');
+  const signIn = useCallback(
+    async ({ email, password }) => {
+      const response = await api.get('/peoples');
 
-    const users = response.data;
+      const users = response.data;
 
-    const userExist = users.find((user: any) => user.email === email);
+      const userExist = users.find((user: any) => user.email === email);
 
-    if (userExist && userExist.password === password) {
-      setToken(userExist.token);
-      setData(userExist);
+      if (!userExist || userExist.password !== password) {
+        throw new Error(
+          'E-mail ou senha incorretos verifique e tente novamente.',
+        );
+      }
 
-      localStorage.setItem('@NewWorld:user', JSON.stringify(userExist));
-      localStorage.setItem('@NewWorld:token', userExist.token);
-    }
-  }, []);
+      if (userExist && userExist.password === password) {
+        setToken(userExist.token);
+        setData(userExist);
+
+        localStorage.setItem('@NewWorld:user', JSON.stringify(userExist));
+        localStorage.setItem('@NewWorld:token', userExist.token);
+
+        addToast({
+          type: 'success',
+          title: 'Autenticação ok',
+        });
+      }
+    },
+    [addToast],
+  );
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@NewWorld:token');

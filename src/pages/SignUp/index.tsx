@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -31,7 +31,6 @@ const SignUp: React.FC = () => {
   const [maskedCep, setMaskedCep] = useState('');
 
   const formRef = useRef<FormHandles>(null);
-  const inputRef = useRef(null);
 
   const { createUser, user } = useCreate();
 
@@ -60,8 +59,13 @@ const SignUp: React.FC = () => {
 
         createUser(data);
       } catch (err) {
-        console.log(err);
-        formRef.current?.setErrors(getValidationErrors(err));
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+
+          formRef.current?.setErrors(errors);
+        }
+
+        // disparar um toast
       }
     },
     [createUser],

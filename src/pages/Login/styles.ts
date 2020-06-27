@@ -61,7 +61,7 @@ export const Content = styled.div`
       background-color: #f4fff3;
       padding: 10px;
 
-      p {
+      label {
         color: #8497ae;
         font-weight: bold;
         margin: 20px 0 5px 5px;

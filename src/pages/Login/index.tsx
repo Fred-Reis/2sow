@@ -61,10 +61,10 @@ const Login: React.FC = () => {
           <h1>LOGIN</h1>
 
           <div>
-            <p>EMAIL</p>
+            <label>EMAIL</label>
             <Input name="email" placeholder="Digite seu E-mail" />
 
-            <p>SENHA</p>
+            <label>SENHA</label>
             <Input
               name="senha"
               type="password"

@@ -4,7 +4,10 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
 import { Container, CustomForm, FormSection, NewButton } from './styles';
-import { useCreate } from 'src/hooks/CreateUserContext';
+import { useCreate } from 'src/hooks/createUser';
+import { useToast } from 'src/hooks/toast';
+
+import ICreateUsersDTO from 'src/dtos/ICreateUsersDTO';
 
 import getValidationErrors from 'src/utils/getValidationErrors';
 import Input from 'src/components/Input';
@@ -14,28 +17,17 @@ import cpfMask from 'src/utils/cpfMask';
 
 import logo from 'src/assets/logo.svg';
 
-interface SingnUpFormData {
-  nome: string;
-  cpf: string;
-  email: string;
-  senha: string;
-  cep: string;
-  rua: string;
-  numero: number;
-  bairro: string;
-  cidade: string;
-}
-
 const SignUp: React.FC = () => {
   const [maskedCpf, setMaskedCpf] = useState('');
   const [maskedCep, setMaskedCep] = useState('');
 
   const formRef = useRef<FormHandles>(null);
 
+  const { addToast, removeToast } = useToast();
   const { createUser, user } = useCreate();
 
   const handleSubmit = useCallback(
-    async (data: SingnUpFormData): Promise<void> => {
+    async (data: ICreateUsersDTO): Promise<void> => {
       try {
         formRef.current?.setErrors({});
 
@@ -57,7 +49,7 @@ const SignUp: React.FC = () => {
           abortEarly: false,
         });
 
-        createUser(data);
+        await createUser(data);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -65,10 +57,10 @@ const SignUp: React.FC = () => {
           formRef.current?.setErrors(errors);
         }
 
-        // disparar um toast
+        addToast();
       }
     },
-    [createUser],
+    [createUser, addToast],
   );
 
   const handleMaskCpf = useCallback((e: any): any => {

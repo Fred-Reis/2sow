@@ -1,22 +1,11 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
-import api from '../services/api';
-
 import { uuid } from 'uuidv4';
+
+import ICreateUsersDTO from 'src/dtos/ICreateUsersDTO';
+import api from '../services/api';
 
 interface CreateUserState {
   user: object;
-}
-
-interface CreateCredentials {
-  nome: string;
-  cpf: string;
-  email: string;
-  senha: string;
-  cep: string;
-  rua: string;
-  numero: number;
-  bairro: string;
-  cidade: string;
 }
 
 interface RemoveCredentials {
@@ -25,7 +14,7 @@ interface RemoveCredentials {
 
 interface CreateUserContextDTO {
   user: object;
-  createUser(credentials: CreateCredentials): Promise<void>;
+  createUser(credentials: ICreateUsersDTO): Promise<void>;
   removeUser(credentials: RemoveCredentials): Promise<void>;
 }
 
@@ -38,7 +27,7 @@ export const CreateUserProvider: React.FC = ({ children }) => {
 
   const [data, setData] = useState<CreateUserState>({} as CreateUserState);
 
-  const createUser = useCallback(async (credentials: CreateCredentials) => {
+  const createUser = useCallback(async (credentials: ICreateUsersDTO) => {
     const response = await api.get('/peoples');
 
     const users = response.data;

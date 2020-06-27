@@ -228,6 +228,21 @@
         "cidade": "cidade eterna"
       },
       "id": 19
+    },
+    {
+      "nome": "wqfwqf",
+      "cpf": "213.213.123-21",
+      "email": "fresdgd@teste.com",
+      "password": "1234",
+      "token": "493837b5-95cb-4034-9256-79a02a258abf",
+      "endereco": {
+        "cep": "27275-215",
+        "rua": "Rua Laranjeiras",
+        "numero": "777777",
+        "bairro": "Retiro",
+        "cidade": "Volta Redonda"
+      },
+      "id": 20
     }
   ]
 }

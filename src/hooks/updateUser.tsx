@@ -59,11 +59,11 @@ export const UpdateUserProvider: React.FC = ({ children }) => {
   );
 };
 
-export function useCreate(): UpdateUserContextDTO {
+export function useUpdate(): UpdateUserContextDTO {
   const context = useContext(UpdateUserContext);
 
   if (!context) {
-    throw new Error('useCreate must be used withim CreateProvider');
+    throw new Error('useUpdate must be used withim UpdateProvider');
   }
   return context;
 }

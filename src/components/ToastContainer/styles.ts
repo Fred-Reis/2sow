@@ -29,6 +29,8 @@ export const Container = styled.div`
   right: 0;
   padding: 50px 30px;
   overflow: hidden;
+
+  z-index: 2;
 `;
 
 export const Toast = styled.div<ToastProps>`

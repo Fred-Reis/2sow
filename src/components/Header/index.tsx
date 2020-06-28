@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdEventNote } from 'react-icons/md';
-import { FiLogOut, FiUser } from 'react-icons/fi';
+import { FiLogOut } from 'react-icons/fi';
+import { RiUserAddLine } from 'react-icons/ri';
 
 import { useAuth } from 'src/hooks/auth';
 
@@ -11,10 +12,6 @@ import Logo from '../../assets/logo.svg';
 
 const Header: React.FC = () => {
   const { signOut } = useAuth();
-
-  // const handleLogOut = useCallback(async () => {
-  //   signOut();
-  // }, []);
 
   return (
     <Container>
@@ -28,9 +25,9 @@ const Header: React.FC = () => {
               Dashboard
             </Link>
 
-            <Link to="/profile">
-              <FiUser size={20} />
-              Perfil
+            <Link to="/addUser">
+              <RiUserAddLine size={20} />
+              Adicionar Usuário
             </Link>
 
             <button type="button" onClick={() => signOut()}>

@@ -4,33 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useToast } from './toast';
 import api from '../services/api';
 
-interface UserAddress {
-  cep: string;
-  rua: string;
-  numero: number;
-  bairro: string;
-  cidade: string;
-}
-interface PeopleProps {
-  id?: string;
-  token?: string;
-  avatar?: string;
-  nome: string;
-  cpf: string;
-  email: string;
-  senha: string;
-  endereco: UserAddress;
-}
-interface AuthState {
-  id?: string;
-  token?: string;
-  avatar?: string;
-  nome: string;
-  cpf: string;
-  email: string;
-  senha: string;
-  endereco: UserAddress;
-}
+import ICreateUsersDTO from 'src/dtos/ICreateUsersDTO';
 
 interface SignInCredentials {
   email: string;
@@ -39,7 +13,7 @@ interface SignInCredentials {
 
 interface AuthContextDTO {
   token: string;
-  user: PeopleProps;
+  user: ICreateUsersDTO;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -61,14 +35,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     return '';
   });
 
-  const [data, setData] = useState<AuthState>(() => {
+  const [data, setData] = useState<ICreateUsersDTO>(() => {
     const user = localStorage.getItem('@NewWorld:user');
 
     if (user) {
       return JSON.parse(user);
     }
 
-    return {} as AuthState;
+    return {} as ICreateUsersDTO;
   });
 
   const signIn = useCallback(
@@ -111,8 +85,9 @@ export const AuthProvider: React.FC = ({ children }) => {
     localStorage.removeItem('@NewWorld:token');
     localStorage.removeItem('@NewWorld:user');
 
-    setData({} as AuthState);
+    setData({} as ICreateUsersDTO);
     setToken('');
+    push('/');
   }, []);
 
   return (

@@ -1,19 +1,16 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { uuid } from 'uuidv4';
 
 import ICreateUsersDTO from 'src/dtos/ICreateUsersDTO';
 import api from '../services/api';
-
-interface CreateUserState {
-  user: object;
-}
 
 interface RemoveCredentials {
   id: string;
 }
 
 interface CreateUserContextDTO {
-  user: object;
+  user: ICreateUsersDTO;
   createUser(credentials: ICreateUsersDTO): Promise<void>;
   removeUser(credentials: RemoveCredentials): Promise<void>;
 }
@@ -23,9 +20,10 @@ const CreateUserContext = createContext<CreateUserContextDTO>(
 );
 
 export const CreateUserProvider: React.FC = ({ children }) => {
+  const [data, setData] = useState<ICreateUsersDTO>({} as ICreateUsersDTO);
   const [token, setToken] = useState('');
 
-  const [data, setData] = useState<CreateUserState>({} as CreateUserState);
+  const { push } = useHistory();
 
   const createUser = useCallback(async (credentials: ICreateUsersDTO) => {
     const response = await api.get('/peoples');
@@ -49,11 +47,11 @@ export const CreateUserProvider: React.FC = ({ children }) => {
       password: credentials.senha,
       token: uuid(),
       endereco: {
-        cep: credentials.cep,
-        rua: credentials.rua,
-        numero: credentials.numero,
-        bairro: credentials.bairro,
-        cidade: credentials.cidade,
+        cep: credentials.endereco.cep,
+        rua: credentials.endereco.rua,
+        numero: credentials.endereco.numero,
+        bairro: credentials.endereco.bairro,
+        cidade: credentials.endereco.cidade,
       },
     };
 
@@ -68,10 +66,14 @@ export const CreateUserProvider: React.FC = ({ children }) => {
 
     localStorage.setItem('@NewWorld:user', JSON.stringify(res.data));
     localStorage.setItem('@NewWorld:token', res.data.token);
+
+    push('/dashboard');
   }, []);
 
   const removeUser = useCallback(async ({ id }: RemoveCredentials) => {
     const response = await api.delete(`/peoples/${id}`);
+
+    console.log('no remove', id);
   }, []);
 
   return (

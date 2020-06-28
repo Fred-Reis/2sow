@@ -1,10 +1,35 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useToast } from './toast';
 import api from '../services/api';
 
+interface UserAddress {
+  cep: string;
+  rua: string;
+  numero: number;
+  bairro: string;
+  cidade: string;
+}
+interface PeopleProps {
+  id?: string;
+  token?: string;
+  avatar?: string;
+  nome: string;
+  cpf: string;
+  email: string;
+  senha: string;
+  endereco: UserAddress;
+}
 interface AuthState {
-  user: object;
+  id?: string;
+  token?: string;
+  avatar?: string;
+  nome: string;
+  cpf: string;
+  email: string;
+  senha: string;
+  endereco: UserAddress;
 }
 
 interface SignInCredentials {
@@ -13,7 +38,8 @@ interface SignInCredentials {
 }
 
 interface AuthContextDTO {
-  user: object;
+  token: string;
+  user: PeopleProps;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -22,6 +48,8 @@ const AuthContext = createContext<AuthContextDTO>({} as AuthContextDTO);
 
 export const AuthProvider: React.FC = ({ children }) => {
   const { addToast } = useToast();
+
+  const { push } = useHistory();
 
   const [token, setToken] = useState(() => {
     const newToken = localStorage.getItem('@NewWorld:token');
@@ -51,7 +79,11 @@ export const AuthProvider: React.FC = ({ children }) => {
 
       const userExist = users.find((user: any) => user.email === email);
 
-      if (!userExist || userExist.password !== password) {
+      if (!userExist) {
+        throw new Error('Usuário não encontrado, verifique e tente novamente.');
+      }
+
+      if (userExist.password !== password) {
         throw new Error(
           'E-mail ou senha incorretos verifique e tente novamente.',
         );
@@ -68,6 +100,8 @@ export const AuthProvider: React.FC = ({ children }) => {
           type: 'success',
           title: 'Autenticação ok',
         });
+
+        push('/dashboard');
       }
     },
     [addToast],
@@ -82,7 +116,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data, signIn, signOut }}>
+    <AuthContext.Provider value={{ user: data, signIn, signOut, token }}>
       {children}
     </AuthContext.Provider>
   );

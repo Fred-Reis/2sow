@@ -23,7 +23,7 @@ const AuthContext = createContext<AuthContextDTO>({} as AuthContextDTO);
 export const AuthProvider: React.FC = ({ children }) => {
   const { addToast } = useToast();
 
-  const { push } = useHistory();
+  const history = useHistory();
 
   const [token, setToken] = useState(() => {
     const newToken = localStorage.getItem('@NewWorld:token');
@@ -45,41 +45,31 @@ export const AuthProvider: React.FC = ({ children }) => {
     return {} as ICreateUsersDTO;
   });
 
-  const signIn = useCallback(
-    async ({ email, password }) => {
-      const response = await api.get('/peoples');
+  const signIn = useCallback(async ({ email, password }) => {
+    const response = await api.get('/peoples');
 
-      const users = response.data;
+    const users = response.data;
 
-      const userExist = users.find((user: any) => user.email === email);
+    const userExist = users.find((user: any) => user.email === email);
 
-      if (!userExist) {
-        throw new Error('Usuário não encontrado, verifique e tente novamente.');
-      }
+    if (!userExist) {
+      throw new Error('Usuário não encontrado, verifique e tente novamente.');
+    }
 
-      if (userExist.password !== password) {
-        throw new Error(
-          'E-mail ou senha incorretos verifique e tente novamente.',
-        );
-      }
+    if (userExist.password !== password) {
+      throw new Error(
+        'E-mail ou senha incorretos verifique e tente novamente.',
+      );
+    }
 
-      if (userExist && userExist.password === password) {
-        setToken(userExist.token);
-        setData(userExist);
+    if (userExist && userExist.password === password) {
+      localStorage.setItem('@NewWorld:user', JSON.stringify(userExist));
+      localStorage.setItem('@NewWorld:token', userExist.token);
 
-        localStorage.setItem('@NewWorld:user', JSON.stringify(userExist));
-        localStorage.setItem('@NewWorld:token', userExist.token);
-
-        addToast({
-          type: 'success',
-          title: 'Autenticação ok',
-        });
-
-        push('/dashboard');
-      }
-    },
-    [addToast],
-  );
+      setToken(userExist.token);
+      setData(userExist);
+    }
+  }, []);
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@NewWorld:token');
@@ -87,8 +77,13 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     setData({} as ICreateUsersDTO);
     setToken('');
-    push('/');
-  }, []);
+
+    addToast({
+      type: 'info',
+      title: 'Sessão Encerrada',
+    });
+    history.push('/');
+  }, [history, addToast]);
 
   return (
     <AuthContext.Provider value={{ user: data, signIn, signOut, token }}>

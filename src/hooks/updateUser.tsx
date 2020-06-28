@@ -1,27 +1,16 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
+import { uuid } from 'uuidv4';
+
+import ICreateUsersDTO from 'src/dtos/ICreateUsersDTO';
 import api from '../services/api';
 
 interface UpdateUserState {
   newUser: object;
 }
 
-interface UpdateCredentials {
-  id: string;
-  nome: string;
-  cpf: string;
-  email: string;
-  senha: string;
-  token: string;
-  cep: string;
-  rua: string;
-  numero: number;
-  bairro: string;
-  cidade: string;
-}
-
 interface UpdateUserContextDTO {
   newUser: object;
-  updateUser(credentials: UpdateCredentials): Promise<void>;
+  updateUser(credentials: ICreateUsersDTO): Promise<void>;
 }
 
 const UpdateUserContext = createContext<UpdateUserContextDTO>(
@@ -31,19 +20,19 @@ const UpdateUserContext = createContext<UpdateUserContextDTO>(
 export const UpdateUserProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<UpdateUserState>({} as UpdateUserState);
 
-  const updateUser = useCallback(async (credentials: UpdateCredentials) => {
+  const updateUser = useCallback(async (credentials: ICreateUsersDTO) => {
     const form = {
       nome: credentials.nome,
       cpf: credentials.cpf,
       email: credentials.email,
       password: credentials.senha,
-      token: credentials.token,
+      token: uuid(),
       endereco: {
-        cep: credentials.cep,
-        rua: credentials.rua,
-        numero: credentials.numero,
-        bairro: credentials.bairro,
-        cidade: credentials.cidade,
+        cep: credentials.endereco.cep,
+        rua: credentials.endereco.rua,
+        numero: credentials.endereco.numero,
+        bairro: credentials.endereco.bairro,
+        cidade: credentials.endereco.cidade,
       },
     };
 

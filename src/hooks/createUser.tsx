@@ -21,7 +21,6 @@ const CreateUserContext = createContext<CreateUserContextDTO>(
 
 export const CreateUserProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<ICreateUsersDTO>({} as ICreateUsersDTO);
-  const [token, setToken] = useState('');
 
   const { push } = useHistory();
 
@@ -61,13 +60,7 @@ export const CreateUserProvider: React.FC = ({ children }) => {
       form,
     );
 
-    setToken(res.data.token);
     setData(res.data);
-
-    localStorage.setItem('@NewWorld:user', JSON.stringify(res.data));
-    localStorage.setItem('@NewWorld:token', res.data.token);
-
-    push('/dashboard');
   }, []);
 
   const removeUser = useCallback(async ({ id }: RemoveCredentials) => {

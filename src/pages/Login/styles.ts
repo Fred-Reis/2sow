@@ -1,7 +1,32 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { lighten } from 'polished';
 
 import backgroundImg from '../../assets/background-login.png';
+
+const fromLeft = keyframes`
+  from{
+    opacity:0;
+    transform: translateX(-50px);
+  }
+  to{
+
+    opacity:1;
+    transform: translateX(0);
+  }
+`;
+
+const fromBottom = keyframes`
+  from{
+    opacity:0;
+    transform: translateY(50px);
+  }
+  to{
+
+    opacity:1;
+    transform: translateY(0);
+  }
+`;
+
 export const Container = styled.div`
   height: 100vh;
 
@@ -15,6 +40,10 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
 
+  @media (max-height: 750px) {
+    padding-top: 60px;
+  }
+
   width: 100%;
   max-width: 700px;
 
@@ -22,6 +51,8 @@ export const Content = styled.div`
     position: absolute;
     top: 15px;
     left: 15px;
+
+    animation: ${fromLeft} 1s;
   }
 
   h2 {
@@ -42,6 +73,8 @@ export const Content = styled.div`
     width: 340px;
     height: 470px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+
+    animation: ${fromBottom} 1s;
 
     @media (max-width: 450px) {
       width: 80%;

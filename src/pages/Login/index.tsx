@@ -1,4 +1,5 @@
 import React, { useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import { FiLogIn } from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -50,11 +51,12 @@ const Login: React.FC = () => {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
-        }
 
+          return;
+        }
         addToast({
           type: 'error',
-          title: 'Erro no cadastro',
+          title: 'Erro no Login',
           description: err.message,
         });
       }
@@ -84,10 +86,10 @@ const Login: React.FC = () => {
 
             <Button type="submit">ENTRAR</Button>
 
-            <a href="signUp">
+            <Link to="/signUp">
               Não tenho cadastro
               <FiLogIn />
-            </a>
+            </Link>
           </div>
         </Form>
       </Content>

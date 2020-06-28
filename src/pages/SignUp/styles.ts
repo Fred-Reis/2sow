@@ -1,9 +1,33 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { lighten } from 'polished';
 import { Form } from '@unform/web';
 
 import backgroundImg from '../../assets/background-signUp.png';
 import Button from '../../components/Button';
+
+const fromRigth = keyframes`
+  from{
+    opacity:0;
+    transform: translateX(50px);
+  }
+  to{
+
+    opacity:1;
+    transform: translateX(0);
+  }
+`;
+
+const fromBottom = keyframes`
+  from{
+    opacity:0;
+    transform: translateY(50px);
+  }
+  to{
+
+    opacity:1;
+    transform: translateY(0);
+  }
+`;
 
 export const Container = styled.div`
   height: 100vh;
@@ -14,6 +38,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
+  @media (max-height: 750px) {
+    padding-top: 100px;
+  }
+
   @media (max-width: 780px) {
     height: 100%;
     background-attachment: fixed;
@@ -23,6 +51,8 @@ export const Container = styled.div`
     position: absolute;
     top: 15px;
     right: 15px;
+
+    animation: ${fromRigth} 1s;
   }
 `;
 
@@ -36,6 +66,8 @@ export const CustomForm = styled(Form)`
   width: 700px;
 
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+
+  animation: ${fromBottom} 1s;
 
   @media (max-width: 780px) {
     display: flex;

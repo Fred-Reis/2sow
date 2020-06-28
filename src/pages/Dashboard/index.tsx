@@ -1,10 +1,14 @@
 import React, { useEffect, useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { FiEdit, FiX } from 'react-icons/fi';
+
+import ICreateUsersDTO from 'src/dtos/ICreateUsersDTO';
 
 import Header from 'src/components/Header';
 import Button from 'src/components/Button';
 
 import { useAuth } from 'src/hooks/auth';
+import { useToast } from 'src/hooks/toast';
 
 import api from 'src/services/api';
 
@@ -16,27 +20,11 @@ import {
   ButtonsContainer,
 } from './styles';
 
-interface UserAddress {
-  cep: string;
-  rua: string;
-  numero: number;
-  bairro: string;
-  cidade: string;
-}
-interface PeopleProps {
-  id?: string;
-  token?: string;
-  avatar?: string;
-  nome: string;
-  cpf: string;
-  email: string;
-  senha: string;
-  endereco: UserAddress;
-}
-
 const Dashboard: React.FC = () => {
-  const [peoples, setPeoples] = useState<PeopleProps[]>([]);
+  const [peoples, setPeoples] = useState<ICreateUsersDTO[]>([]);
 
+  const { addToast } = useToast();
+  const { push } = useHistory();
   const { user } = useAuth();
 
   useEffect(() => {
@@ -53,10 +41,14 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const handleRemove = useCallback(async (id) => {
-    console.log('aqui no remove', id);
     await api.delete(`/peoples/${id}`);
 
     setPeoples((state) => state.filter((people) => people.id !== id));
+
+    addToast({
+      type: 'error',
+      title: 'Usuário removido',
+    });
   }, []);
 
   return (
@@ -71,7 +63,12 @@ const Dashboard: React.FC = () => {
             />
 
             <strong>{user.nome}</strong>
-            <Button type="button">Ver Perfil</Button>
+            <Button
+              type="button"
+              onClick={() => push('/profile', { user, id: 'user' })}
+            >
+              Ver Perfil
+            </Button>
           </CardProfile>
 
           <TableContainer>
@@ -106,7 +103,11 @@ const Dashboard: React.FC = () => {
                     <button onClick={() => handleRemove(people.id)}>
                       <FiX size={20} />
                     </button>
-                    <button>
+                    <button
+                      onClick={() =>
+                        push('/profile', { user: people, id: 'update' })
+                      }
+                    >
                       <FiEdit size={20} />
                     </button>
                   </ButtonsContainer>

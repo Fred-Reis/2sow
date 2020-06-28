@@ -60,7 +60,8 @@ const SignUp: React.FC = () => {
         addToast({
           type: 'success',
           title: 'Cadastro realizado',
-          description: 'Bem vindo ao Novo Mundo!',
+          description:
+            'Seja bem vindo ao Novo Mundo, agora você já pode fazer o seu login e acessar',
         });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {

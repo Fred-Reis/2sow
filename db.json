@@ -1,21 +1,6 @@
 {
   "peoples": [
     {
-      "nome": "joao",
-      "cpf": "342.342.342-34",
-      "email": "fasfasf@asdf.com",
-      "password": "1233",
-      "token": "8517c602-efe9-474f-93c9-d86151c608df",
-      "endereco": {
-        "cep": "21341-241",
-        "rua": "Rua Laranjeiras",
-        "numero": "111",
-        "bairro": "Retiro",
-        "cidade": "Volta Redonda"
-      },
-      "id": 11
-    },
-    {
       "nome": "ok",
       "cpf": "232.323.232-32",
       "email": "dfad@sas.com",

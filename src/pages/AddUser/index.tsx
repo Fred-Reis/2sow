@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { FiArrowLeft } from 'react-icons/fi';
+
 import { FormHandles, Scope } from '@unform/core';
 import * as Yup from 'yup';
 
@@ -28,8 +27,6 @@ const AddUser: React.FC = () => {
 
   const { addToast } = useToast();
   const { createUser } = useCreate();
-
-  const { push } = useHistory();
 
   const handleSubmit = useCallback(
     async (data: ICreateUsersDTO): Promise<void> => {

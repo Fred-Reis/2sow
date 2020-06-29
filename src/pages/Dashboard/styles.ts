@@ -4,6 +4,8 @@ import { lighten, shade } from 'polished';
 import backgroundImg from 'src/assets/backgroung-dashboard.jpg';
 import inputImg from 'src/assets/search.svg';
 
+import Input from 'src/components/Input';
+
 export const Container = styled.div`
   min-height: 100vh;
   max-height: 100%;
@@ -53,29 +55,6 @@ export const CardProfile = styled.div`
 export const TableContainer = styled.section`
   flex: 1;
   margin-left: 300px;
-
-  input {
-    position: fixed;
-    right: 50px;
-    top: 115px;
-    z-index: 1;
-
-    background: url(${inputImg}) no-repeat scroll 6px 6px;
-    background-color: #eee9fd;
-    border: 0;
-    color: #2d374e;
-    padding: 10px 10px 10px 35px;
-
-    font-weight: bold;
-    width: 300px;
-    border: 2px solid #afbaca;
-    box-shadow: 0px 4px 4px rgba(175, 186, 202, 0.25);
-    border-radius: 5px;
-
-    &:focus {
-      border-color: ${lighten(0.2, '#afbaca')};
-    }
-  }
 
   ul {
     flex: 1;
@@ -174,4 +153,35 @@ export const ButtonsContainer = styled.div`
       }
     }
   }
+`;
+
+// input {
+//   position: fixed;
+//   right: 50px;
+//   top: 115px;
+//   z-index: 1;
+
+//   background: url(${inputImg}) no-repeat scroll 6px 6px;
+//   background-color: #eee9fd;
+//   border: 0;
+//   color: #2d374e;
+//   padding: 10px 10px 10px 35px;
+
+//   font-weight: bold;
+//   width: 300px;
+//   border: 2px solid #afbaca;
+//   box-shadow: 0px 4px 4px rgba(175, 186, 202, 0.25);
+//   border-radius: 5px;
+
+//   &:focus {
+//     border-color: ${lighten(0.2, '#afbaca')};
+//   }
+// }
+
+export const InputContainer = styled.div`
+  position: fixed;
+  right: 50px;
+  top: 115px;
+  width: 300px !important;
+  z-index: 1;
 `;

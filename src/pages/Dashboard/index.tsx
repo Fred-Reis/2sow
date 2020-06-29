@@ -1,11 +1,15 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FiEdit, FiX } from 'react-icons/fi';
+
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
 
 import ICreateUsersDTO from 'src/dtos/ICreateUsersDTO';
 
 import Header from 'src/components/Header';
 import Button from 'src/components/Button';
+import Input from 'src/components/Input';
 
 import { useAuth } from 'src/hooks/auth';
 import { useToast } from 'src/hooks/toast';
@@ -18,10 +22,17 @@ import {
   CardProfile,
   TableContainer,
   ButtonsContainer,
+  InputContainer,
 } from './styles';
+
+interface LoadUser {
+  nome: string;
+}
 
 const Dashboard: React.FC = () => {
   const [peoples, setPeoples] = useState<ICreateUsersDTO[]>([]);
+
+  const formRef = useRef<FormHandles>(null);
 
   const { addToast } = useToast();
   const { push } = useHistory();
@@ -38,6 +49,37 @@ const Dashboard: React.FC = () => {
       }
     };
     loadPeoples();
+  }, []);
+
+  const handleSubmit = useCallback(async (data: LoadUser): Promise<void> => {
+    console.log(data);
+
+    try {
+      const response = await api.get(
+        `/peoples${data.nome.length === 0 ? '/' : `/?nome=${data.nome}`}`,
+      );
+
+      if (response.data.length < 1) {
+        addToast({
+          type: 'error',
+          title: 'Usuário não encontrado',
+          description: 'Tente novamente!',
+        });
+        return;
+      }
+
+      setPeoples(response.data);
+
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+
+      addToast({
+        type: 'error',
+        title: 'Ocorreu um erro',
+        description: err,
+      });
+    }
   }, []);
 
   const handleRemove = useCallback(async (id) => {
@@ -72,7 +114,15 @@ const Dashboard: React.FC = () => {
           </CardProfile>
 
           <TableContainer>
-            <input type="text" placeholder="Procure pelo nome" />
+            <Form ref={formRef} onSubmit={handleSubmit}>
+              <InputContainer>
+                <Input
+                  name="nome"
+                  type="text"
+                  placeholder="Procure pelo nome"
+                />
+              </InputContainer>
+            </Form>
 
             <ul>
               <h1>Veja quem está à bordo:</h1>

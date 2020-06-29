@@ -33,8 +33,6 @@ const Profile: React.FC = () => {
   const { addToast } = useToast();
   const { updateUser } = useUpdate();
 
-  console.log(state);
-
   useEffect(() => {
     formRef.current?.setFieldValue('nome', state.user.nome);
     formRef.current?.setFieldValue('cpf', state.user.cpf);
@@ -59,7 +57,6 @@ const Profile: React.FC = () => {
 
   const handleSubmit = useCallback(
     async (data: ICreateUsersDTO): Promise<void> => {
-      console.log('data', data);
       try {
         formRef.current?.setErrors({});
 

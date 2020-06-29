@@ -2,6 +2,8 @@ import React, { createContext, useCallback, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { uuid } from 'uuidv4';
 
+import faker from 'faker';
+
 import ICreateUsersDTO from 'src/dtos/ICreateUsersDTO';
 import api from '../services/api';
 
@@ -37,11 +39,10 @@ export const CreateUserProvider: React.FC = ({ children }) => {
       throw new Error('Já existe um cadastro com esse endereço de e-mail.');
     }
 
-    console.log('credentials', credentials);
-
     const form = {
       nome: credentials.nome,
       cpf: credentials.cpf,
+      avatar: faker.image.avatar(),
       email: credentials.email,
       password: credentials.senha,
       token: uuid(),
@@ -65,8 +66,6 @@ export const CreateUserProvider: React.FC = ({ children }) => {
 
   const removeUser = useCallback(async ({ id }: RemoveCredentials) => {
     const response = await api.delete(`/peoples/${id}`);
-
-    console.log('no remove', id);
   }, []);
 
   return (

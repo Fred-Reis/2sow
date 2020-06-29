@@ -31,7 +31,6 @@ const SignUp: React.FC = () => {
 
   const handleSubmit = useCallback(
     async (data: ICreateUsersDTO): Promise<void> => {
-      console.log('data', data);
       try {
         formRef.current?.setErrors({});
 
@@ -63,6 +62,8 @@ const SignUp: React.FC = () => {
           description:
             'Seja bem vindo ao Novo Mundo, agora você já pode fazer o seu login e acessar',
         });
+
+        push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);

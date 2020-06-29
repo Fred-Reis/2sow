@@ -30,7 +30,6 @@ const AddUser: React.FC = () => {
 
   const handleSubmit = useCallback(
     async (data: ICreateUsersDTO): Promise<void> => {
-      console.log('data', data);
       try {
         formRef.current?.setErrors({});
 

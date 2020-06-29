@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 import { lighten, shade } from 'polished';
+import { css } from '@emotion/core';
 
 import backgroundImg from 'src/assets/backgroung-dashboard.jpg';
-import inputImg from 'src/assets/search.svg';
 
-import Input from 'src/components/Input';
+export const override = css`
+  display: block;
+  position: absolute;
+  bottom: 13%;
+  right: 50%;
+  z-index: 3;
+`;
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -59,13 +65,14 @@ export const TableContainer = styled.section`
   ul {
     flex: 1;
     width: 100%;
+    height: 100%;
+    position: relative;
 
     background: rgba(255, 255, 255, 0.7);
     border-radius: 8px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
     margin: 30px;
-    padding: 20px;
-    /* z-index: -2; */
+    padding: 20px 20px 0 20px;
 
     h1 {
       color: #1e0041;
@@ -154,29 +161,6 @@ export const ButtonsContainer = styled.div`
     }
   }
 `;
-
-// input {
-//   position: fixed;
-//   right: 50px;
-//   top: 115px;
-//   z-index: 1;
-
-//   background: url(${inputImg}) no-repeat scroll 6px 6px;
-//   background-color: #eee9fd;
-//   border: 0;
-//   color: #2d374e;
-//   padding: 10px 10px 10px 35px;
-
-//   font-weight: bold;
-//   width: 300px;
-//   border: 2px solid #afbaca;
-//   box-shadow: 0px 4px 4px rgba(175, 186, 202, 0.25);
-//   border-radius: 5px;
-
-//   &:focus {
-//     border-color: ${lighten(0.2, '#afbaca')};
-//   }
-// }
 
 export const InputContainer = styled.div`
   position: fixed;

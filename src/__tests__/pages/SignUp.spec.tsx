@@ -52,7 +52,7 @@ describe('SignUp Page', () => {
     const cepField = getByPlaceholderText('CEP');
     const ruaField = getByPlaceholderText('Rua');
 
-    const buttonElement = getByText('ENTRAR');
+    const buttonElement = getByText('REALIZAR CADASTRO');
 
     fireEvent.change(emailField, { target: { value: 'teste@example.com' } });
     fireEvent.change(cpfField, { target: { value: '12345678909999' } });
@@ -84,7 +84,7 @@ describe('SignUp Page', () => {
     const cepField = getByPlaceholderText('CEP');
     const ruaField = getByPlaceholderText('Rua');
 
-    const buttonElement = getByText('ENTRAR');
+    const buttonElement = getByText('REALIZAR CADASTRO');
 
     fireEvent.change(emailField, { target: { value: 'no-valid-e-mail' } });
     fireEvent.change(cpfField, { target: { value: '12345678909999' } });
@@ -116,7 +116,7 @@ describe('SignUp Page', () => {
     const cepField = getByPlaceholderText('CEP');
     const ruaField = getByPlaceholderText('Rua');
 
-    const buttonElement = getByText('ENTRAR');
+    const buttonElement = getByText('REALIZAR CADASTRO');
 
     fireEvent.change(emailField, { target: { value: 'teste@example.com' } });
     fireEvent.change(cpfField, { target: { value: '12345678909999' } });
@@ -152,7 +152,7 @@ describe('SignUp Page', () => {
     const cepField = getByPlaceholderText('CEP');
     const ruaField = getByPlaceholderText('Rua');
 
-    const buttonElement = getByText('ENTRAR');
+    const buttonElement = getByText('REALIZAR CADASTRO');
 
     fireEvent.change(emailField, { target: { value: 'teste@example.com' } });
     fireEvent.change(cpfField, { target: { value: '12345678909999' } });

@@ -21,6 +21,7 @@ import logo from 'src/assets/logo.svg';
 const SignUp: React.FC = () => {
   const [maskedCpf, setMaskedCpf] = useState('');
   const [maskedCep, setMaskedCep] = useState('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const formRef = useRef<FormHandles>(null);
 
@@ -31,6 +32,7 @@ const SignUp: React.FC = () => {
 
   const handleSubmit = useCallback(
     async (data: ICreateUsersDTO): Promise<void> => {
+      setLoading(true);
       try {
         formRef.current?.setErrors({});
 
@@ -62,9 +64,12 @@ const SignUp: React.FC = () => {
           description:
             'Seja bem vindo ao Novo Mundo, agora você já pode fazer o seu login e acessar',
         });
+        setLoading(false);
 
         history.push('/');
       } catch (err) {
+        setLoading(false);
+
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
@@ -174,7 +179,9 @@ const SignUp: React.FC = () => {
           </Scope>
         </div>
 
-        <NewButton type="submit">ENTRAR</NewButton>
+        <NewButton disabled={!!loading} loading={loading} type="submit">
+          REALIZAR CADASTRO
+        </NewButton>
 
         <Link to="/">
           <FiArrowLeft />

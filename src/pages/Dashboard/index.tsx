@@ -2,7 +2,10 @@ import React, { useEffect, useCallback, useState, useRef } from 'react';
 import InfiniteLoading from 'react-simple-infinite-loading';
 import { useHistory } from 'react-router-dom';
 import { FiEdit, FiX } from 'react-icons/fi';
-import PacmanLoader from 'react-spinners/PacmanLoader';
+
+import BeatLoader from 'react-spinners/BeatLoader';
+import FadeLoader from 'react-spinners/FadeLoader';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -26,6 +29,8 @@ import {
   ButtonsContainer,
   InputContainer,
   override,
+  CustomButton,
+  buttonCard,
 } from './styles';
 
 interface LoadUser {
@@ -86,20 +91,26 @@ const Dashboard: React.FC = () => {
     }
   }, []);
 
-  const handleRemove = useCallback(async (id) => {
-    await api.delete(`/peoples/${id}`);
+  const handleRemove = useCallback(
+    async (id) => {
+      setLoading(true);
 
-    setPeoples((state) => state.filter((people) => people.id !== id));
+      await api.delete(`/peoples/${id}`);
 
-    addToast({
-      type: 'error',
-      title: 'Usuário removido',
-    });
+      setPeoples((state) => state.filter((people) => people.id !== id));
 
-    // if (peoples.length < 1) {
-    //   signOut();
-    // }
-  }, []);
+      addToast({
+        type: 'error',
+        title: 'Usuário removido',
+      });
+
+      // if (peoples.length < 1) {
+      //   signOut();
+      // }
+      setLoading(false);
+    },
+    [addToast],
+  );
 
   const loadMorePeoples = async () => {
     setLoading(true);
@@ -123,6 +134,7 @@ const Dashboard: React.FC = () => {
 
             <strong>{user.nome}</strong>
             <Button
+              disabled={!!loading}
               type="button"
               onClick={() => history.push('/profile', { user, id: 'user' })}
             >
@@ -143,7 +155,7 @@ const Dashboard: React.FC = () => {
 
             <ul>
               {loading && (
-                <PacmanLoader css={override} size={50} color={' #1e0041'} />
+                <BeatLoader css={override} size={20} color={' #1e0041'} />
               )}
 
               <h1>Veja quem está à bordo:</h1>
@@ -174,10 +186,22 @@ const Dashboard: React.FC = () => {
                       </div>
 
                       <ButtonsContainer>
-                        <button onClick={() => handleRemove(people.id)}>
-                          <FiX size={20} />
-                        </button>
-                        <button
+                        <CustomButton
+                          disabled={!!loading}
+                          onClick={() => handleRemove(people.id)}
+                        >
+                          {loading ? (
+                            <ClipLoader
+                              css={buttonCard}
+                              size={20}
+                              color={'#c53030'}
+                            />
+                          ) : (
+                            <FiX size={20} />
+                          )}
+                        </CustomButton>
+                        <CustomButton
+                          disabled={!!loading}
                           onClick={() =>
                             history.push('/profile', {
                               user: people,
@@ -185,8 +209,16 @@ const Dashboard: React.FC = () => {
                             })
                           }
                         >
-                          <FiEdit size={20} />
-                        </button>
+                          {loading ? (
+                            <ClipLoader
+                              css={buttonCard}
+                              size={20}
+                              color={'#00c94d'}
+                            />
+                          ) : (
+                            <FiEdit size={20} />
+                          )}
+                        </CustomButton>
                       </ButtonsContainer>
                     </li>
                   ))}

@@ -58,9 +58,13 @@ const Login: React.FC = () => {
           description: 'Seja bem-vindo à bordo!',
         });
 
-        history.push('/dashboard');
+        setTimeout(() => {
+          history.push('/dashboard');
+        }, 500);
+
         setLoading(false);
       } catch (err) {
+        setLoading(false);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
@@ -74,7 +78,6 @@ const Login: React.FC = () => {
           title: 'Erro no Login',
           description: err.message,
         });
-        setLoading(false);
       }
     },
     [signIn, addToast],
@@ -100,7 +103,7 @@ const Login: React.FC = () => {
               placeholder="Digite sua senha"
             />
 
-            <Button disabled={loading} loading={loading} type="submit">
+            <Button disabled={!!loading} loading={loading} type="submit">
               ENTRAR
             </Button>
 

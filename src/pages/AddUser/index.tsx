@@ -20,6 +20,7 @@ import cpfMask from 'src/utils/cpfMask';
 import logo from 'src/assets/logo.svg';
 
 const AddUser: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [maskedCpf, setMaskedCpf] = useState('');
   const [maskedCep, setMaskedCep] = useState('');
 
@@ -30,6 +31,7 @@ const AddUser: React.FC = () => {
 
   const handleSubmit = useCallback(
     async (data: ICreateUsersDTO): Promise<void> => {
+      setLoading(true);
       try {
         formRef.current?.setErrors({});
 
@@ -60,7 +62,10 @@ const AddUser: React.FC = () => {
           title: 'Cadastro realizado',
           description: `Bem vindo á bordo ${data.nome}!`,
         });
+        setLoading(false);
       } catch (err) {
+        setLoading(false);
+
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
@@ -171,7 +176,9 @@ const AddUser: React.FC = () => {
             </Scope>
           </div>
 
-          <NewButton type="submit">CADASTRAR</NewButton>
+          <NewButton disabled={!!loading} loading={loading} type="submit">
+            REALIZAR CADASTRO
+          </NewButton>
         </CustomForm>
       </Container>
     </>

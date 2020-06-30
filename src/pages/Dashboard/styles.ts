@@ -4,11 +4,21 @@ import { css } from '@emotion/core';
 
 import backgroundImg from 'src/assets/backgroung-dashboard.jpg';
 
+interface ButtonProps {
+  loading?: boolean;
+}
+
 export const override = css`
   display: block;
   position: absolute;
   bottom: 13%;
   right: 50%;
+  z-index: 3;
+`;
+
+export const buttonCard = css`
+  display: flex;
+  opacity: 0.7;
   z-index: 3;
 `;
 
@@ -133,31 +143,30 @@ export const ButtonsContainer = styled.div`
   height: 100%;
 
   width: 50px;
+`;
+export const CustomButton = styled.button<ButtonProps>`
+  background-color: ${lighten(0.2, '#c53030')};
+  color: ${shade(0.5, '#c53030')};
+  border: none;
+  position: relative;
+  border-radius: 0 9px 0 0;
+  height: 50%;
+  transition: background-color 0.25s;
 
-  button {
-    background-color: ${lighten(0.2, '#c53030')};
-    color: ${shade(0.5, '#c53030')};
-    border: none;
-    flex: 1;
-    border-radius: 0 9px 0 0;
-    height: 50%;
+  &:hover {
+    background-color: ${lighten(0.1, '#c53030')};
+    color: ${shade(0.6, '#c53030')};
+  }
+
+  & + button {
+    background-color: ${lighten(0.4, '#00c94d')};
+    color: ${shade(0.5, '#00c94d')};
+    border-radius: 0 0 9px 0;
     transition: background-color 0.25s;
 
     &:hover {
-      background-color: ${lighten(0.1, '#c53030')};
-      color: ${shade(0.6, '#c53030')};
-    }
-
-    & + button {
-      background-color: ${lighten(0.4, '#00c94d')};
+      background-color: ${lighten(0.2, '#00c94d')};
       color: ${shade(0.5, '#00c94d')};
-      border-radius: 0 0 9px 0;
-      transition: background-color 0.25s;
-
-      &:hover {
-        background-color: ${lighten(0.2, '#00c94d')};
-        color: ${shade(0.5, '#00c94d')};
-      }
     }
   }
 `;

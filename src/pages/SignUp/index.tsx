@@ -65,18 +65,13 @@ const SignUp: React.FC = () => {
 
         history.push('/');
       } catch (err) {
-        console.log('aqui');
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
 
-          console.log('aqui2');
-
           return;
         }
-
-        console.log('aqui 3');
 
         addToast({
           type: 'error',

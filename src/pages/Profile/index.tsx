@@ -5,7 +5,7 @@ import { FormHandles, Scope } from '@unform/core';
 import * as Yup from 'yup';
 
 import { Container, CustomForm, FormSection, NewButton } from './styles';
-import { useUpdate } from 'src/hooks/updateUser';
+import { useCreate } from 'src/hooks/createUser';
 import { useToast } from 'src/hooks/toast';
 import { useAuth } from 'src/hooks/auth';
 
@@ -35,7 +35,7 @@ const Profile: React.FC = () => {
   const history = useHistory();
   const { state }: StateProps = useLocation();
   const { addToast } = useToast();
-  const { updateUser } = useUpdate();
+  const { updateUser } = useCreate();
 
   useEffect(() => {
     formRef.current?.setFieldValue('nome', state.user.nome);

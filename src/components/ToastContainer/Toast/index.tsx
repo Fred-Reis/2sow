@@ -37,6 +37,7 @@ const Toast: React.FC<ToastProps> = ({ message, style }) => {
 
   return (
     <Container
+      data-testid="toast-container"
       style={style}
       type={message.type}
       description={!!message.description}

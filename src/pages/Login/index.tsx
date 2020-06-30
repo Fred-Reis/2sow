@@ -24,12 +24,15 @@ interface LoginFormData {
 const Login: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
+  const [loading, setLoading] = useState(false);
+
   const { addToast } = useToast();
   const { signIn } = useAuth();
   const history = useHistory();
 
   const handleSubmit = useCallback(
     async (data: LoginFormData): Promise<void> => {
+      setLoading(true);
       try {
         formRef.current?.setErrors({});
 
@@ -56,6 +59,7 @@ const Login: React.FC = () => {
         });
 
         history.push('/dashboard');
+        setLoading(false);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -70,6 +74,7 @@ const Login: React.FC = () => {
           title: 'Erro no Login',
           description: err.message,
         });
+        setLoading(false);
       }
     },
     [signIn, addToast],
@@ -95,7 +100,9 @@ const Login: React.FC = () => {
               placeholder="Digite sua senha"
             />
 
-            <Button type="submit">ENTRAR</Button>
+            <Button disabled={loading} loading={loading} type="submit">
+              ENTRAR
+            </Button>
 
             <Link to="/signUp">
               Não tenho cadastro

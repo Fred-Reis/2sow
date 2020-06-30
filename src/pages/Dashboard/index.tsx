@@ -50,7 +50,6 @@ const Dashboard: React.FC = () => {
         const response = await api.get('/peoples?_page=1&_limit=5');
 
         setPeoples(response.data);
-        console.log('loading', loading);
 
         setLoading(false);
       } catch (err) {
@@ -97,9 +96,9 @@ const Dashboard: React.FC = () => {
       title: 'Usuário removido',
     });
 
-    if (peoples.length < 1) {
-      signOut();
-    }
+    // if (peoples.length < 1) {
+    //   signOut();
+    // }
   }, []);
 
   const loadMorePeoples = async () => {
@@ -107,8 +106,6 @@ const Dashboard: React.FC = () => {
     const response = await api.get(`/peoples?_page=${count}&_limit=5`);
 
     const newPeoples = response.data;
-
-    console.log('loading', loading);
 
     setCount(count + 1);
 

@@ -5,6 +5,7 @@ import { lighten } from 'polished';
 export const Container = styled.button`
   width: 100%;
   border: none;
+  height: 42px;
   padding: 10px;
   background-color: #37005c;
   box-shadow: 0px 5px 5px rgba(191, 84, 182, 0.25),

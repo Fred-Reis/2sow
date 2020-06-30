@@ -95,8 +95,5 @@ export const AuthProvider: React.FC = ({ children }) => {
 export function useAuth(): AuthContextDTO {
   const context = useContext(AuthContext);
 
-  if (!context) {
-    throw new Error('useAuth must be used withim AuthProvider');
-  }
   return context;
 }

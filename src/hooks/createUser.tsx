@@ -6,14 +6,11 @@ import faker from 'faker';
 import ICreateUsersDTO from 'src/dtos/ICreateUsersDTO';
 import api from '../services/api';
 
-interface RemoveCredentials {
-  id: string;
-}
-
 interface CreateUserContextDTO {
   user: ICreateUsersDTO;
+  newUser: ICreateUsersDTO;
+  updateUser(credentials: ICreateUsersDTO): Promise<void>;
   createUser(credentials: ICreateUsersDTO): Promise<void>;
-  removeUser(credentials: RemoveCredentials): Promise<void>;
 }
 
 const CreateUserContext = createContext<CreateUserContextDTO>(
@@ -21,6 +18,10 @@ const CreateUserContext = createContext<CreateUserContextDTO>(
 );
 
 export const CreateUserProvider: React.FC = ({ children }) => {
+  const [newData, setNewData] = useState<ICreateUsersDTO>(
+    {} as ICreateUsersDTO,
+  );
+
   const [data, setData] = useState<ICreateUsersDTO>({} as ICreateUsersDTO);
 
   const createUser = useCallback(async (credentials: ICreateUsersDTO) => {
@@ -61,12 +62,31 @@ export const CreateUserProvider: React.FC = ({ children }) => {
     setData(res.data);
   }, []);
 
-  const removeUser = useCallback(async ({ id }: RemoveCredentials) => {
-    const response = await api.delete(`/peoples/${id}`);
+  const updateUser = useCallback(async (credentials: ICreateUsersDTO) => {
+    const form = {
+      nome: credentials.nome,
+      cpf: credentials.cpf,
+      email: credentials.email,
+      password: credentials.senha,
+      token: uuid(),
+      endereco: {
+        cep: credentials.endereco.cep,
+        rua: credentials.endereco.rua,
+        numero: credentials.endereco.numero,
+        bairro: credentials.endereco.bairro,
+        cidade: credentials.endereco.cidade,
+      },
+    };
+
+    const response = await api.put(`/peoples/${credentials.id}`, form);
+
+    setData(response.data);
   }, []);
 
   return (
-    <CreateUserContext.Provider value={{ user: data, createUser, removeUser }}>
+    <CreateUserContext.Provider
+      value={{ user: data, createUser, updateUser, newUser: newData }}
+    >
       {children}
     </CreateUserContext.Provider>
   );
@@ -75,8 +95,5 @@ export const CreateUserProvider: React.FC = ({ children }) => {
 export function useCreate(): CreateUserContextDTO {
   const context = useContext(CreateUserContext);
 
-  if (!context) {
-    throw new Error('useCreate must be used withim CreateProvider');
-  }
   return context;
 }

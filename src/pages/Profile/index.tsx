@@ -21,6 +21,10 @@ import cpfMask from 'src/utils/cpfMask';
 
 import logo from 'src/assets/logo.svg';
 
+interface StateProps {
+  state?: any;
+}
+
 const Profile: React.FC = () => {
   const [maskedCpf, setMaskedCpf] = useState('');
   const [maskedCep, setMaskedCep] = useState('');
@@ -28,8 +32,8 @@ const Profile: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { signIn } = useAuth();
-  const { push } = useHistory();
-  const { state } = useLocation();
+  const history = useHistory();
+  const { state }: StateProps = useLocation();
   const { addToast } = useToast();
   const { updateUser } = useUpdate();
 
@@ -81,7 +85,7 @@ const Profile: React.FC = () => {
         });
 
         const newUser: ICreateUsersDTO = {
-          id: state.user.id,
+          id: state?.user?.id,
           nome: data.nome,
           cpf: data.cpf,
           email: data.email,
@@ -98,7 +102,7 @@ const Profile: React.FC = () => {
 
         await updateUser(newUser);
 
-        if (state.id === 'user') {
+        if (state?.id === 'user') {
           await signIn({ email: data.email, password: data.senha });
         }
 
@@ -108,7 +112,7 @@ const Profile: React.FC = () => {
           description: 'Seus dados foram atualizados com sucesso!',
         });
 
-        push('/dashboard');
+        history.push('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);

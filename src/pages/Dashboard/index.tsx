@@ -41,7 +41,7 @@ const Dashboard: React.FC = () => {
 
   const { user, signOut } = useAuth();
   const { addToast } = useToast();
-  const { push } = useHistory();
+  const history = useHistory();
 
   useEffect(() => {
     const loadPeoples = async (): Promise<void> => {
@@ -127,7 +127,7 @@ const Dashboard: React.FC = () => {
             <strong>{user.nome}</strong>
             <Button
               type="button"
-              onClick={() => push('/profile', { user, id: 'user' })}
+              onClick={() => history.push('/profile', { user, id: 'user' })}
             >
               Ver Perfil
             </Button>
@@ -182,7 +182,10 @@ const Dashboard: React.FC = () => {
                         </button>
                         <button
                           onClick={() =>
-                            push('/profile', { user: people, id: 'update' })
+                            history.push('/profile', {
+                              user: people,
+                              id: 'update',
+                            })
                           }
                         >
                           <FiEdit size={20} />

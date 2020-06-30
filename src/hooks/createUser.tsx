@@ -1,5 +1,4 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { uuid } from 'uuidv4';
 
 import faker from 'faker';
@@ -23,8 +22,6 @@ const CreateUserContext = createContext<CreateUserContextDTO>(
 
 export const CreateUserProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<ICreateUsersDTO>({} as ICreateUsersDTO);
-
-  const { push } = useHistory();
 
   const createUser = useCallback(async (credentials: ICreateUsersDTO) => {
     const response = await api.get('/peoples');

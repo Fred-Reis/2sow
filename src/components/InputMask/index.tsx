@@ -37,6 +37,7 @@ const InputMask: React.FC<Props> = ({ name, ...rest }) => {
   return (
     <Container
       // isFilled={isFilled}
+
       isFocused={isFocused}
       onFocus={handleInputFocus}
       onBlur={handleInputBlur}

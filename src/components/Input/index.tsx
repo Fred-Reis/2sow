@@ -38,7 +38,11 @@ const Input: React.FC<InputProps> = ({ name, ...rest }) => {
     });
   }, [fieldName, registerField]);
   return (
-    <Container isFocused={isFocused} isErrored={!!error}>
+    <Container
+      isFocused={isFocused}
+      isErrored={!!error}
+      data-testid="input-container"
+    >
       <input
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}

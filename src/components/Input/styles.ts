@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { shade } from 'polished';
 
 import Tooltip from '../Tooltip';
 
@@ -28,7 +27,7 @@ export const Container = styled.div<InputProps>`
   ${(props) =>
     props.isFocused &&
     css`
-      border-color: ${shade(0.3, '#afbaca')};
+      border-color: #2d374e;
     `}
     &
     + p {

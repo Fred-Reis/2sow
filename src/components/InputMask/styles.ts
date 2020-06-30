@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { shade } from 'polished';
 
 import ReactInputMask from 'react-input-mask';
 
@@ -20,7 +19,7 @@ export const Container = styled(ReactInputMask)<InputProps>`
   ${(props) =>
     props.isFocused &&
     css`
-      border-color: ${shade(0.3, '#afbaca')};
+      border-color: #2d374e;
     `}
 
   &::placeholder {

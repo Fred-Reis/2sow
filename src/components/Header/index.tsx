@@ -16,11 +16,12 @@ const Header: React.FC = () => {
   return (
     <Container>
       <header>
-        <img src={Logo} alt="GoFinances" />
+        <img src={Logo} alt="NewWorld" />
 
         <nav>
           <>
             <Link to="/dashboard">
+              <div data-testid="header-testid" />
               <MdEventNote size={20} color="inhehait" />
               Dashboard
             </Link>

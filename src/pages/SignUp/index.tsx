@@ -27,7 +27,7 @@ const SignUp: React.FC = () => {
   const { addToast } = useToast();
   const { createUser } = useCreate();
 
-  const { push } = useHistory();
+  const history = useHistory();
 
   const handleSubmit = useCallback(
     async (data: ICreateUsersDTO): Promise<void> => {
@@ -63,15 +63,21 @@ const SignUp: React.FC = () => {
             'Seja bem vindo ao Novo Mundo, agora você já pode fazer o seu login e acessar',
         });
 
-        push('/');
+        history.push('/');
       } catch (err) {
+        console.log('aqui');
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
 
+          console.log('aqui2');
+
           return;
         }
+
+        console.log('aqui 3');
+
         addToast({
           type: 'error',
           title: 'Erro no cadastro',

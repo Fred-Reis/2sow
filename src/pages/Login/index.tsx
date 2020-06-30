@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import { FiLogIn } from 'react-icons/fi';
@@ -25,8 +25,8 @@ const Login: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { addToast } = useToast();
-  const { push } = useHistory();
   const { signIn } = useAuth();
+  const history = useHistory();
 
   const handleSubmit = useCallback(
     async (data: LoginFormData): Promise<void> => {
@@ -55,7 +55,7 @@ const Login: React.FC = () => {
           description: 'Seja bem-vindo à bordo!',
         });
 
-        push('/dashboard');
+        history.push('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -64,6 +64,7 @@ const Login: React.FC = () => {
 
           return;
         }
+
         addToast({
           type: 'error',
           title: 'Erro no Login',

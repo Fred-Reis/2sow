@@ -1,6 +1,6 @@
 <div align="center">
   <img alt="Delivery Much"
-    src="src/assets/login.png"
+    src="src/assets/readme/login.png"
   />
 
 </div>

@@ -100,15 +100,15 @@ O objeto de envio para a API deverá ser nessa estrutura JSON:
 
 ```JSON
 {
-      nome: 'foo bar',
-      cpf: '213.123.123-45',
-      email: 'foo_bar@email.com',
-      endereco: {
-          cep: 13454000,
-          rua: 'rua talvez',
-          numero: 785,
-          bairro: 'bairro azul',
-          cidade: 'cidade eterna',
+     "nome": "foo bar",
+      "cpf": "213.123.123-45",
+      "email": "foo_bar@email.com",
+      "endereco": {
+          "cep": 13454000,
+          "rua": "rua talvez",
+          "numero": 785,
+          "bairro": "bairro azul",
+          "cidade": "cidade eterna",
       }
   }
 ```

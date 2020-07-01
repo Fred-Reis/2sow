@@ -65,14 +65,34 @@
 
 </p>
 
-  <!-- <iframe
+ <iframe
     src="https://www.youtube.com/embed/lAqOI19qbxs"
     autoplay="1"
     frameborder="0"
-  /> -->
+  />
+  
+  <iframe
+    src={src/assets/readme/navegacao_1.gif}
+    autoplay="1"
+    frameborder="0"
+  />
+  
+  <iframe
+    src={"src/assets/readme/navegacao_2.gif"}
+    autoplay="1"
+    frameborder="0"
+  />
+  
+  <iframe
+    src="src/assets/readme/responsivo.gif"
+    autoplay="1"
+    frameborder="0"
+  />
 
 ![Navegação 1](src/assets/readme/navegacao_1.gif)
+
 ![Navegação 1](src/assets/readme/navegacao_2.gif)
+
 ![Navegação 1](src/assets/readme/responsivo.gif)
 
 ## 💡 Sobre esse desafio:

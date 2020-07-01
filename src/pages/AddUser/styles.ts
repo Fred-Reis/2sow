@@ -67,6 +67,8 @@ export const CustomForm = styled(Form)`
   padding: 20px;
   width: 700px;
 
+  margin-top: 50px;
+
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
 
   animation: ${fromBottom} 1s;
@@ -75,7 +77,7 @@ export const CustomForm = styled(Form)`
     display: flex;
     flex-direction: column;
 
-    margin: 70px 50px;
+    margin: 200px 50px;
   }
 
   h2 {

@@ -21,6 +21,11 @@ export const Container = styled.div`
       display: flex;
       flex-direction: row;
       align-items: center;
+
+      @media (max-width: 750px) {
+        flex-direction: column;
+        align-items: flex-end;
+      }
       a {
         color: #1e0041;
         text-decoration: none;
@@ -53,6 +58,7 @@ export const Container = styled.div`
         transition: opacity 0.2s;
         padding-bottom: 10px;
         display: flex;
+        color: #1e0041;
 
         border: 2px solid transparent;
         svg {

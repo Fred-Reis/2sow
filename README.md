@@ -6,7 +6,7 @@
 </div>
 
 <h2 align="center">
-   Delivery Much tech challenge
+   New World tech challenge
 </h2>
 
 <p align="center">
@@ -25,10 +25,7 @@
 </p>
 
 <blockquote align="center">
-  Este projeto foi desenvolvido como um teste técnico para:&nbsp;
-    <a href="https://deliverymuch.com.br/inicio">
-       Delivery Much
-    </a>
+  Este projeto foi desenvolvido como um teste técnico.
 </blockquote>
 
 <hr/>
@@ -43,11 +40,14 @@
   <a href="#-requisitos">
     <img src="https://img.shields.io/badge/Requisitos-a5a5a5"/>
   </a>&nbsp;&nbsp;
+  <a href="#-especificacoes-tecnicas">
+    <img src="https://img.shields.io/badge/Especificações_técnicas-a5a5a5"/>
+  </a>&nbsp;&nbsp;
   <a href="#-arquitetura">
     <img src="https://img.shields.io/badge/Arquitetura-a5a5a5"/>
   </a>&nbsp;&nbsp;
-  <a href="-funcionalidades">
-    <img src="https://img.shields.io/badge/Funcionalidades-a5a5a5"/>
+  <a href="#-sobre-a-api">
+    <img src="https://img.shields.io/badge/Sobre_a_API-a5a5a5"/>
   </a>&nbsp;&nbsp;
   <a href="#-testes">
     <img src="https://img.shields.io/badge/Testes-a5a5a5"/>
@@ -58,78 +58,145 @@
   <a href="#-executando-o-projeto">
     <img src="https://img.shields.io/badge/Executando_Projeto-a5a5a5"/>
   </a>&nbsp;&nbsp;
-  <a href="#-configurando-o-docker">
-    <img src="https://img.shields.io/badge/Configurando_Docker-a5a5a5"/>
-  </a>&nbsp;&nbsp;
+
   <a href="#author-frederico-reis">
     <img src="https://img.shields.io/badge/Author-a5a5a5"/>
   </a>
 
 </p>
 
+  <!-- <iframe
+    src="https://www.youtube.com/embed/lAqOI19qbxs"
+    autoplay="1"
+    frameborder="0"
+  /> -->
+
+![Navegação 1](src/assets/readme/navegacao_1.gif)
+![Navegação 1](src/assets/readme/navegacao_2.gif)
+![Navegação 1](src/assets/readme/responsivo.gif)
+
 ## 💡 Sobre esse desafio:
 
-A proposta do desafio era construir uma API que recebesse ingredientes como parâmetros de entrada em uma chamada GET e retornasse uma lista de receitas, cada receita deveria seguir o seguinte formato:
-
-```JSON
-{
-  "title": "Titulo da receita",
-  "ingredients": ["ingrediente_1", "ingrediente_2", "..."],
-  "link": "O link para a receita",
-  "gif": "Um gif relacionado a essa receita"
-}
-```
+(CRUD)
+A proposta do desafio era construir um sistema para cadastro, listagem, e remoção de usuários.
 
 ## 📑 Requisitos
 
-- Utilização da API pública da [RecipePuppy](http://www.recipepuppy.com/about/api/), para obter a lista de receitas;
-- Utilização da API pública da [Giphy](https://developers.giphy.com/docs/), para gerar os Gifs;
-- Para obter o gif no Giphy, deveria ser utilizado o título de cada receita;
-- Os ingredientes recebidos pelo RecipePuppy são recebidos em String, e deveriam ser organizados em um array ordenado por ordem alfabética;
-- Era necessário informar ao usuário caso algum dos serviçoes externos estivem indisponíveis;
-- Fazer o Deploy do projeto no Docker;
-- A API deveria receber como parâmetro um conjunto de no máximo 3 ingredientes;
-- Foi criado um arquivo `.env`para armazenar informações sensíveis, como a chave da API do Giphy
+### Tela login
+
+- Ao se logar o usurio deverá ser direcionado para a tela de listagem;
+- Deverá ter um campo email e um campo de senha;
+- As únicas validações serão;
+
+* - Email em formato válido
+    Senha maior que 4 caracteres;
+
+- Após o submit, deverá guardar um token no local-storage;
+
+### Tela com formulário de cadastro;
+
+- ❗️ Deverá ser acessada apenas por usuários autenticados no login;
+- O formulário deverá ser responsivo;
+- Todos os campos são obrigatórios;
+- O formato do email deverá ser validado;
+- Os campos de CEP deverão ser Inputs com máscaras;
+- Deverá haver uma integração com o [ViaCEP](https://viacep.com.br/) para preenchimento dos campos de endereço;
+- Deverá conter um campo para cada um dos itens abaixo:
+- - Nome, CPF, Email, CEP, Rua, Número, Bairro e Cidade;
+
+O objeto de envio para a API deverá ser nessa estrutura JSON:
+
+```JSON
+{
+      nome: 'foo bar',
+      cpf: '213.123.123-45',
+      email: 'foo_bar@email.com',
+      endereco: {
+          cep: 13454000,
+          rua: 'rua talvez',
+          numero: 785,
+          bairro: 'bairro azul',
+          cidade: 'cidade eterna',
+      }
+  }
+```
+
+### Tela de listagem de usuários;
+
+- Deverá ser acessada apenas por usuários autenticados no login;
+- Deverá ser uma tabela com uma coluna pra nome, CPF, email e cidade;
+- Deverá conter um botão para excluir o registro e um para editar;
+- Deverá permitir fazer uma busca por nome;
+- Não precisa ser responsiva;
+
+**_Extras:_**
+
+Paginação / Carregar mais / Infinite loading
+
+### Header
+
+- Um topbar/navbar fixo nas telas de listagem e cadastro de novos usuários;
+- Um logo com nome da aplicação e mais 2 botões de navegação para as telas acima citadas;
+- Ter um logout;
+
+## 🕵🏻‍♂️ Observações:
+
+No item que foi na marcado com o ❗️ pode-ser observar a seguinte divergência:
+
+**_O formulário de cadastro de usuários só poderia ser acessado por usuários autenticados._**
+
+❓Como um usuário poderia se autenticar antes de fazer o cadastro??
+
+Pra resolver esse problema foi criado a seguinte estrutura
+![navegacao](src/assets/readme/navegacao.png)
+
+### ➕🎅🏼 Extras
+
+- Foi criado um formulário para cadastro e outro para adição de novos usuários, esse segundo acessivel somente para usuários autenticados.
+- Quando você cria um cadastro foi utilizado a lib [uuid](https://github.com/uuidjs/uuid#readme) para a criação de um token que será usado para autenticação.
+- E para deixar a aplicação mais divertida e com um melhor aspecto visual, foi utilizado a lib [faker](https://www.npmjs.com/package/faker) cria um avatar **ALEATÓRIO** ao criar um novo usuário, portanto boa sorte 🤷🏻‍♂️😂.
+- Foi utilizado [react-springs](https://www.react-spring.io/) para fazer as animações do nosso toast;
+- Além da criação de um Tooltip que deixa nossas validações de erro mjuito mais elegantes.
+- Foi utilizado a lib [react-simple-infinite-loading](https://www.npmjs.com/package/react-simple-infinite-loading) para criar um Infinite loading, (precisa ser refatorado para uma melhor experiência);
+
+## 📝 Especificações Técnicas
+
+- ✅ Deveria ser desenvolvido em React;
+- ✅ Utilizar react-router para navegação;
+- ✅ Tivesse algum Toast/notification;
+- ⚠️ Se fosse utilizar alguma lib de UI components, dar preferência para o [SemanticUI](http://react.semantic-ui.com/).
+- - Como não era um requisito obrigatório, o layout foi 100% autoral (já vimos melhores eu sei, mas só se desenvolve fazendo)
+- ✅🎖 [styled-components](https://styled-components.com/);
+- ✅🎖 typescript;
+- ⚠️🎖 testes unitários;
+- - Até o presente momento os testes cobriram 60% de toda aplicação, devendo chegar a 100% em PR futuros.
+- ✅🎖 hooks;
+- - Além da utilização dos **hooks** do react, foram criados nossos próprios hooks, para autenticação e envio de Toasts utilizando [Context](https://pt-br.reactjs.org/docs/context.html) também do React;
+- ✅🎖 Após colocar o CEP e preencher todos os campos de endereço, mude o foco do cursor para o campo de número, para que o usuário não precise tirar a mão do teclado;
+
+> Os itens marcados com 🎖 eram opcionais.
 
 ## 📐 Arquitetura:
 
-O projeto foi concebido utilizando a metodologia de DDD - Domain Driven Design, seguindo os princípios do SOLID e Design Patterns.
-Separando responsabilidades, diminuindo acoplamentos, facilitando na refatoração e estimulando o reaproveitamento do código.
+O projeto foi concebido utilizando o conceito de componentização do React que facilita o reapoveitamento de código.
 
 Estrutura:
 
 ![estrutura](src/assets/readme/estrutura.png)
 
-## 🔥 Funcionalidades:
+## ⚙️ Sobre a API:
 
-A API possui apenas um endpoint, que deve respeitar a seguinte chamada:
+- Para emular uma API REST completa (CRUD) no backend, deveria ser usado o json-server
 
-`http://{HOST}/recipes/?i={ingredient_1},{ingredient_2}`
+Para instalar o json-server:
 
-Exemplo:
-
-`http://localhost:5432/recipes/?i=garlic,eggs`
-
-A resposta de requisição deveria ter como estrutura: um array com as palavras chaves (ingredientes da chamada) organizados em ordem alfabética e uma lista de receitas:
-
-```JSON
-{
-	"keywords": ["egg", "garlic"],
-	"recipes": [
-    {
-		"title": "Roast Garlic Fresh Pasta Recipe",
-		"ingredients": ["garlic", "egg yolks", "eggs", "pasta", "flour"],
-		"link": "http://www.grouprecipes.com/33194/roast-garlic-fresh-pasta.html",
-		"gif": "https://media.giphy.com/media/xBRhcST67lI2c/giphy.gif"
-	   },{
-		"title": "Maria's Stuffed Chicken Breasts",
-		"ingredients": ["chicken", "eggs", "garlic", "salt"],
-		"link":"http://allrecipes.com/Recipe/Marias-Stuffed-Chicken-Breasts/Detail.aspx",
-		"gif":"https://media.giphy.com/media/I3eVhMpz8hns4/giphy.gif"
-	  }
-	]
-}
 ```
+ yarn global add json-server
+```
+
+Se quiser instalar local no projeto e rodar o servidor via npm scripts, fique a vontade
+
+Rodando o json-server na raíz do projeto, ele criará um arquivo db.json;
 
 ## 🧪 Testes:
 
@@ -138,24 +205,20 @@ Foram implementados testes unitários utilizando [Jest](https://jestjs.io/);
 Para executar os testes basta executar o seguinte comando na raiz do projeto:
 
 ```bash
-$ npm test
+$ yarn test
 ```
 
 Os detalhes do teste serão apresentados no seu console.
-
-Também será gerado automáticamente na raiz do seu projeto uma pasta chamada `coverage`, dentro dela terá uma outra pasta chamada `Lcov-report`. Dentro dessa pasta terá um arquivo `index.html` abra ele no seu browser e tenha acesso a mais detalhes dos testes executados.
 
 ## 🛠 Tecnologias e Ferramentas:
 
 Algumas das tecnologias e ferramentas utilizadas nesse projeto.
 
 - [**NodeJS**](https://nodejs.org/en/);
-- [Docker;](https://www.docker.com/);
 - [Insomnia](https://insomnia.rest/download/);
 - [Notion](https://www.notion.so/?utm_source=google&utm_campaign=brand_alpha&utm_content=row&utm_term=notion&gclid=CjwKCAjw1cX0BRBmEiwAy9tKHs5ggnFG4dmfW38kOuGDTQS1-YjRGg01PuIriv8ftUuAUzeoU7QFFxoCAkIQAvD_BwE);
 - EsLint;
 - Prettier;
-- Express;
 - Jest;
 
 ## 🏁 Executando o projeto:
@@ -181,91 +244,26 @@ $ git clone https://github.com/Fred-Reis/2sow
 4 - Execute o comando a seguir para a criação da pasta `node_modules`
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 5 - Para iniciar o servidor em modo desenvolvimento execute o seguinte comando
 
 ```bash
-$ npm dev:server
+$ yarn dev:server
 ```
 
-> Recomendo o uso do [Insomnia](https://insomnia.rest/download/) para testar as chamadas ao servidor
-
-## 🐳 Configurando o Docker
-
-O projeto possui um arquivo chamado `Dockerfile` que possui as configurações para o deploy do projeto em um container do [Docker](https://www.docker.com/), ele é quem irá passar todos parâmetros que o Docker utilizará para criar nossa imagem.
-
-Vamos partir da premissa que você já tem o docker instalado e pronto para receber a criação de uma imagem, caso ainda não tenha recomendo seguir esse [GUIA](https://www.notion.so/Instalando-o-Docker-373b5fed9526414c8bf018275248cf10).
-
-### 🖼 Criando Imagem
-
-Agora com o Docker devidamente instalado vamos começar criando a imagem do nosso projeto dentro do Docker usando o comando `docker build`.
-
-O comando a seguir recebe uma flag `-t` que ira permitir que você crie um nome para a sua imagem:
-
-> ❗️Importante: É necessário que você esteja dentro da raiz do seu projeto para executar o comando abaixo, pois ele irá utilizar o "." para informar que o contexto da build é o diretório atual. E não esqueça o ponto!
+5 - Para iniciar a aplicação execute o seguinte comando
 
 ```bash
-$ docker build -t nome_usuário/delivery-much-image .
+$ yarn start
 ```
-
-A primeira vez irá demorar um pouco pois o Docker irá baixar a imagem do NodeJs também.
-
-Com o comando a seguir é possível ver a sua imagem que foi criada:
-
-```bash
-$ docker images
-```
-
-### 📦 Criando um container
-
-Com nossa imagem já criada vamos criar um container usando o comando `docker run` vamos usar aqui algumas flags para nos ajudar:
-
-- `-p` Vai fazer o direcionamento das portas, a primeira será a porta que você irá utilizar para acessar pelo seu navegador, aconselho a `5432` que é a porta padrão utilizada pelo Docker, mas fique a vontade para escolher a porta que for melhor pra você, mas lembresse dela pois será a porta que você irá acessar o container no Docker. A segunda porta **OBRIGATORIAMENTE** será a `3333` que foi a porta declarada no nosso arquivo `Dockerfile`, e será a porta que o Docker irá ouvir da sua máquina.
-- `-d` Isso executa o container em segundo plano.
-- `--name` Permite dar um nome ao nosso container.
-
-```bash
-$ docker run --name <nome-container> -p 5432:3333 -d <nome-da-nossa-imagem>
-```
-
-Se tudo deu certo até aqui execute o comando a seguir e você verá o seu container.
-
-```bash
-$ docker ps -a
-```
-
-Agora dê o start no seu container com o comando:
-
-```bash
-$ docker start <id do container>
-```
-
-E com o comando abaixo você decerá ver o seu container executando
-
-```bash
-$ docker ps
-```
-
-Caso isso não aconteça execute o comando abaixo e veja o que aconteceu de errado com a execução do seu container
-
-```bash
-$ docker logs <id do container>
-```
-
-Será mostrado os logs que foram gerados.
 
 <br/>
 
-Se você chegou até aqui é sinal que tudo deu certo e você agora já pode fazer a sua chamada direto do seu browser 😱 seguindo o exemplo abaixo.
-
-`http://localhost:5432/recipes/?i=garlic,eggs`
+😃 Se você chegou até aqui é sinal que tudo deu certo e você agora já pode fazer o seu cadastro e embarcar para um Novo Mundo. 🚀
 
 <br/>
-
-😃 Agora busque as suas receitas e ...
-**SEJA FELIZ!**.
 
 <h4 align="center">
   "Stay hungry stay foolish!"

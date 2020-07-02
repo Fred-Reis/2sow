@@ -65,40 +65,25 @@
 
 </p>
 
-<!--
-<img
-src={src/assets/readme/responsivo.gif}
 
-/> -->
 
-<!-- <div> -->
+## 👀  Demo
 
-<table align="center">
-  <tr >
-    <td>
-      <img width="77px" alt="Sass logo" src={src/assets/readme/responsivo.gif} />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </td>
-    <td valign="center" >
-      <span>Texte</span>
-    </td>
-  </tr>
-</table>
+![Navegação](src/assets/readme/usando.gif)
 
-<p align="center">
-  <img alt="Responsive" src={src/assets/readme/responsivo.gif}>
-</p>
 
-![Navegação 1](src/assets/readme/responsivo.gif)
+## 🖼  Responsivo
 
-<!-- </div align="center" width=50px> -->
+
+![Responsivo](src/assets/readme/responsivo.gif)
+
+
 
 ## 💡 Sobre esse desafio:
 
 (CRUD)
-![Navegação 1](src/assets/readme/navegacao_2.gif)
 A proposta do desafio era construir um sistema para cadastro, listagem, e remoção de usuários.
 
-![Navegação 1](src/assets/readme/navegacao_1.gif)
 
 ## 📑 Requisitos
 

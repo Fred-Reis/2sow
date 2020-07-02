@@ -65,20 +65,40 @@
 
 </p>
 
-  <!-- <iframe
-    src="https://www.youtube.com/embed/lAqOI19qbxs"
-    autoplay="1"
-    frameborder="0"
-  /> -->
+<!--
+<img
+src={src/assets/readme/responsivo.gif}
 
-![Navegação 1](src/assets/readme/navegacao_1.gif)
-![Navegação 1](src/assets/readme/navegacao_2.gif)
-![Navegação 1](src/assets/readme/responsivo.gif)
+/> -->
+
+<!-- <div> -->
+
+<table align="center">
+  <tr >
+    <td>
+      <img width="77px" alt="Sass logo" src={src/assets/readme/responsivo.gif} />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td valign="center" >
+      <span>Texte</span>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <img alt="Responsive" src={src/assets/readme/responsivo.gif}>
+</p>
+
+![Navegação 1](src/assets/readme/responsivo.gif&s=50)
+
+<!-- </div align="center" width=50px> -->
 
 ## 💡 Sobre esse desafio:
 
 (CRUD)
+![Navegação 1](src/assets/readme/navegacao_2.gif)
 A proposta do desafio era construir um sistema para cadastro, listagem, e remoção de usuários.
+
+![Navegação 1](src/assets/readme/navegacao_1.gif)
 
 ## 📑 Requisitos
 
@@ -108,15 +128,15 @@ O objeto de envio para a API deverá ser nessa estrutura JSON:
 
 ```JSON
 {
-      nome: 'foo bar',
-      cpf: '213.123.123-45',
-      email: 'foo_bar@email.com',
-      endereco: {
-          cep: 13454000,
-          rua: 'rua talvez',
-          numero: 785,
-          bairro: 'bairro azul',
-          cidade: 'cidade eterna',
+      "nome": "foo bar",
+      "cpf": "213.123.123-45",
+      "email": "foo_bar@email.com",
+      "endereco": {
+          "cep": 13454000,
+          "rua": "rua talvez",
+          "numero": 785,
+          "bairro": "bairro azul",
+          "cidade": "cidade eterna",
       }
   }
 ```

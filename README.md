@@ -65,25 +65,22 @@
 
 </p>
 
+## 👀 Demo
 
+![Login](src/assets/readme/login.gif)
 
-## 👀  Demo
+![Navegação](src/assets/readme/navegando.gif)
 
-![Navegação](src/assets/readme/usando.gif)
-
-
-## 🖼  Responsivo
-
+## 🖼 Responsivo
 
 ![Responsivo](src/assets/readme/responsivo.gif)
-
-
 
 ## 💡 Sobre esse desafio:
 
 (CRUD)
 A proposta do desafio era construir um sistema para cadastro, listagem, e remoção de usuários.
 
+> Mais informações sobre o desafio estão [aqui no arquivo original](info.md)
 
 ## 📑 Requisitos
 

@@ -88,7 +88,7 @@ src={src/assets/readme/responsivo.gif}
   <img alt="Responsive" src={src/assets/readme/responsivo.gif}>
 </p>
 
-![Navegação 1](src/assets/readme/responsivo.gif&s=50)
+![Navegação 1](src/assets/readme/responsivo.gif)
 
 <!-- </div align="center" width=50px> -->
 

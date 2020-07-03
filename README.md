@@ -69,7 +69,7 @@
 
 ![Login](src/assets/readme/login.gif)
 
-![Navegação](src/assets/readme/navegando.gif)
+![Navegação](src/assets/readme/usando.gif)
 
 ## 🖼 Responsivo
 

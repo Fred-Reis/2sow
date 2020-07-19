@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="Delivery Much"
+  <img alt="New World"
     src="src/assets/readme/login.png"
   />
 
